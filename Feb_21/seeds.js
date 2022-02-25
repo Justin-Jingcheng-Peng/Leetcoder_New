@@ -1,3 +1,4 @@
+// this file is used to initialize the original data;
 const mongoose = require('mongoose');
 const Product = require('./models/product');
 
@@ -28,7 +29,13 @@ const seedProducts = [
         name: 'Ruby Grapefruit',
         price: 1.99,
         category: 'fruit',
+    },
+    {
+        name: 'Fruit 2',
+        price: 2.99,
+        category: 'fruit',
     }
+
 ]
 Product.insertMany(seedProducts)
 .then(res => {
