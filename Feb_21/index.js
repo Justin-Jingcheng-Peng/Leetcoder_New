@@ -15,6 +15,7 @@ mongoose.connect('mongodb://localhost:27017/farmStand', { useNewUrlParser: true,
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(express.urlencoded({extended:true}));
 
 // render all the items on the index.js
 app.get('/products',  async (req, res) => {
@@ -22,8 +23,14 @@ app.get('/products',  async (req, res) => {
     console.log(products)
     res.render('products/index', {products})
 })
+// create new file form
 app.get('/products/new', (req, res) => {
     res.render('products/new')
+})
+app.post('/products', async (req, res) => {
+    const newProduct = new Product(req.body);
+    await newProduct.save();
+    res.redirect(`/products/${newProduct._id}`)
 })
 // get single item
 app.get('/products/:id', async (req, res) => {
