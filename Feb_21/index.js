@@ -22,16 +22,27 @@ app.get('/products',  async (req, res) => {
     console.log(products)
     res.render('products/index', {products})
 })
-// get single item
-app.get('/products/:id', async (req, res) => {
-    const {id} = req.params;
-    const product =  await Product.findById(id) // Product.findByID will return a promise, the program will pause at line 28 until this promise is being resolved;
-    res.render('products/show', {product});
-})
 app.get('/products/new', (req, res) => {
     res.render('products/new')
 })
+// get single item
+app.get('/products/:id', async (req, res) => {
+    const {id} = req.params;
+    // const product =   Product.findById(id) // Product.findByID will return a promise, the program will pause at line 28 until this promise is being resolved;
+    // .then(() => res.render('products/show', {product}))
+    // .catch((e) => {
+    //     console.log(e)
+    // })
+    Product.findById(id , function(err, product){
+        if (err){
+            console.log(err)
+        }
+        else{
+            res.render('products/show', {product})
+        }
+    });
 
+})
 
 app.listen(3000, () => {
     console.log("App is listening...");
