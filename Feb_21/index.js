@@ -28,8 +28,9 @@ app.get('/products/:id', async (req, res) => {
     const product =  await Product.findById(id) // Product.findByID will return a promise, the program will pause at line 28 until this promise is being resolved;
     res.render('products/show', {product});
 })
-
-
+app.get('/products/new', (req, res) => {
+    res.render('products/new')
+})
 
 
 app.listen(3000, () => {
