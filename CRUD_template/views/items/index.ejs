@@ -6,13 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-    <h1><%= category %>  products</h1>
+    <h1><%= category %>  items</h1>
     <ul>
-        <% for (let product of products) {  %>
-        <li><a href = "/products/<%=product._id%>">  <%=product.name%> </a> </li>
+        <% for (let item of items) {  %>
+        <li><a href = "/items/<%=item._id%>">  <%=item.name%> </a> </li>
         <% } %> 
     </ul>
-    <form action="/products/new" method = "GET">
+    <form action="/items/new" method = "GET">
 
         <button>Create New</button>
     </form>

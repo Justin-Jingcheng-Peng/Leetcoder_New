@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const mongoose = require('mongoose');
-const Product = require('./models/product');
+const Item = require('./models/item');
 const methodOverride = require('method-override');
 
 
@@ -17,68 +17,64 @@ mongoose.connect('mongodb://localhost:27017/farmStand', { useNewUrlParser: true,
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(express.urlencoded({extended:true}));
+// form request is used
+app.use(express.urlencoded({extended:true})); // handling form request;
 app.use(methodOverride('_method'))
 
 const categories = ['fruit', 'vegetable', 'dairy'];
 
 // render all the items on the index.js
-app.get('/products',  async (req, res) => {
+app.get('/items',  async (req, res) => {
     const {category} = req.query;
     if (category){
-        const products = await Product.find({category})
-        res.render('products/index', {products, category})
+        const items = await Item.find({category})
+        res.render('items/index', {items, category})
     }else{
-        const products = await Product.find({})
-        res.render('products/index', {products, category:'All'})
+        const items = await Item.find({})
+        res.render('items/index', {items, category:'All'})
     }
     
 })
 
 // create new file form
-app.get('/products/new', (req, res) => {
-    res.render('products/new', {categories})
+app.get('/items/new', (req, res) => { 
+    res.render('items/new', {categories})
 })
-app.post('/products', async (req, res) => {
-    const newProduct = new Product(req.body);
-    await newProduct.save();
-    res.redirect(`/products/${newProduct._id}`)
+app.post('/items', async (req, res) => {
+    const newItem = new Item(req.body);
+    await newItem.save();
+    res.redirect(`/items/${newItem._id}`)
 })
 
 // get single item
-app.get('/products/:id', async (req, res) => {
+app.get('/items/:id', async (req, res) => {
     const {id} = req.params;
-    // const product =   Product.findById(id) // Product.findByID will return a promise, the program will pause at line 28 until this promise is being resolved;
-    // .then(() => res.render('products/show', {product}))
-    // .catch((e) => {
-    //     console.log(e)
-    // })
-    Product.findById(id , function(err, product){
+    Item.findById(id , function(err, item){
         if (err){
             console.log(err)
         }
         else{
-            res.render('products/show', {product})
+            res.render('items/show', {item})
         }
     });
 
 })
 // Edit the item;
-app.get('/products/:id/edit', async (req, res) => {
+app.get('/items/:id/edit', async (req, res) => {
     const {id} = req.params;
-    const product = await Product.findById(id);
-    res.render('products/edit', {product, categories});
+    const item = await Item.findById(id);
+    res.render('items/edit', {item, categories});
 })
-app.put('/products/:id', async (req, res) => {
+app.put('/items/:id', async (req, res) => {
     const {id} = req.params;
-    const product = await Product.findByIdAndUpdate(id,  req.body, {runValidators: true, new:true});
-    res.redirect(`/products/${product._id}`)
+    const item = await Item.findByIdAndUpdate(id,  req.body, {runValidators: true, new:true});
+    res.redirect(`/items/${item._id}`)
 })
 
-app.delete('/products/:id', async(req, res) => {
+app.delete('/items/:id', async(req, res) => {
     const {id} = req.params;
-    const deleteProduct = await Product.findByIdAndDelete(id);
-    res.redirect('/products')  
+    const deleteItem = await Item.findByIdAndDelete(id);
+    res.redirect('/items')  
 })
 
 

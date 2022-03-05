@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Product</title>
+    <title>Edit item</title>
 </head>
 <body>
-    <h1>Edit a product</h1>
-    <form action="/products/<%=product._id%>?_method=PUT" method = "POST">
+    <h1>Edit an item</h1>
+    <form action="/items/<%=item._id%>?_method=PUT" method = "POST">
         <label for="name">Product Name</label>
-        <input type = "text" name="name" id="name" placeholder="product name", value="<%= product.name %>">
+        <input type = "text" name="name" id="name" placeholder="item name", value="<%= item.name %>">
         <label for="price">Price</label>
-        <input type="number" name="price" id="price" placeholder="product price", value="<%= product.price %>">
+        <input type="number" name="price" id="price" placeholder="item price", value="<%= item.price %>">
         <label for="category">Category</label>
         <select name="category" id="category">
             <% for(let category of categories){ %> 
-                <option value="<%=category%>" <%= product.category === category ? 'selected': '' %> ><%=category%></option>
+                <option value="<%=category%>" <%= item.category === category ? 'selected': '' %> ><%=category%></option>
             <% } %>
 
         </select>
