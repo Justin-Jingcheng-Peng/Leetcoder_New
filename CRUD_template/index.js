@@ -20,8 +20,9 @@ app.set('view engine', 'ejs');
 // form request is used
 app.use(express.urlencoded({extended:true})); // handling form request;
 app.use(methodOverride('_method'))
+app.use(express.static(path.join(__dirname, 'public')))
 
-const categories = ['fruit', 'vegetable', 'dairy'];
+const categories = ['easy', 'medium', 'hard'];
 
 // render all the items on the index.js
 app.get('/items',  async (req, res) => {

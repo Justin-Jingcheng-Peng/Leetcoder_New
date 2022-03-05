@@ -4,8 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit item</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/app.css">
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
 </head>
 <body>
+    <div class="stuff">
     <h1>Edit an item</h1>
     <form action="/items/<%=item._id%>?_method=PUT" method = "POST">
         <label for="name">Product Name</label>
@@ -19,8 +24,8 @@
             <% } %>
 
         </select>
-        <button>Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    
+    </div>
 </body>
 </html>
