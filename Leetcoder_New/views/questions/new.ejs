@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/app.css">
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="stuff">
+    <h1>Add an question</h1>
+    <form action="/questions" method = "POST">
+        <label for="name">Question Name</label>
+        <input type = "text" name="name" id="name" placeholder="Question name">
+        <label for="time">Time</label>
+        <input type="number" name="time" id="time" placeholder="time">
+        <label for="category">Category</label>
+        <select name="category" id="category">
+            <% for(let category of categories){ %> 
+            <option value="<%=category%>"><%=category%></option>
+            <% } %> 
+            
+        </select>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    </div>
+</body>
+</html>
